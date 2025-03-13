@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест - Аудит Інвест</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" style="width: 25%;"></div> <!-- Прогресс для текущего вопроса -->
+    </div>
+
+    <main class="question-container">
+        <section class="question">
+            <h2 id="h2-question"></h2>
+            <div id="answers-container" class="answers">
+            </div>
+        </section>
+    </main>
+</body>
+<script>
+    const questions = [
+    {
+        question: 'Як би ви описали свій настрій на роботі?',
+        type: 'Емоційний стан',
+        answers: [
+            { answer: 'Бувають важкі дні, але я не здаюся!', correct: 2 },
+            { answer: 'Навіть у складні моменти я знаходжу сили рухатися вперед.', correct: 4 },
+            { answer: 'Головне – внутрішній спокій і гармонія.', correct: 3 },
+            { answer: 'Кожен день – це можливість стати кращим!', correct: 5 }
+        ]
+    },
+    {
+        question: 'Що додає вам сили боротися зі стресом?',
+        type: 'Емоційний стан',
+        answers: [
+            { answer: 'Будь-який виклик – це шанс стати сильнішим.', correct: 4 },
+            { answer: 'У кожному дні є щось хороше – варто тільки побачити.', correct: 5 },
+            { answer: 'Я фокусуюся на меті, а не на перешкодах.', correct: 2 },
+            { answer: 'Підтримка колег – найкращий спосіб впоратися з труднощами.', correct: 3 }
+        ]
+    },
+    {
+        question: 'Як ви відчуваєтеся перед початком нового робочого тижня?',
+        type: 'Емоційний стан',
+        answers: [
+            { answer: 'Готовий (-а) підкорювати нові вершини!', correct: 5 },
+            { answer: 'Чекаю вихідних, перш ніж тиждень знову почався.', correct: 2 },
+            { answer: 'Потрібен час, щоб увійти в ритм.', correct: 3 },
+            { answer: 'Все залежить від завдань, які на мене чекають.', correct: 4 }
+        ]
+    },
+    {
+        question: 'Що для вас означає успішний робочий день?',
+        type: 'Емоційний стан',
+        answers: [
+            { answer: 'Досягти поставленої мети.', correct: 5 },
+            { answer: 'Не визнажитися морально й фізично.', correct: 2 },
+            { answer: 'Навчитися чомусь новому.', correct: 4 },
+            { answer: 'Отримати подяку від колег чи керівництва.', correct: 3 }
+        ]
+    },
+    {
+        question: 'Як ви ставитеся до змін у роботі?',
+        type: 'Емоційний стан',
+        answers: [
+            { answer: 'Зміни – це можливість росту!', correct: 5 },
+            { answer: 'Я пристосовуюсь, коли потрібно.', correct: 3 },
+            { answer: 'Мені складно прийняти зміни.', correct: 2 },
+            { answer: 'Головне, щоб вони були добре організовані.', correct: 4 }
+        ]
+    },
+    {
+        question: 'Як ви ставитеся до роботи в нашій компанії?',
+        type: 'Відношення до компанії',
+        answers: [
+            { answer: 'Це місце, де я можу зробити щось важливе.', correct: 4 },
+            { answer: 'Я можу проявити себе та розвинути нові навички.', correct: 3 },
+            { answer: 'Тут я бачу перспективи для зростання!', correct: 5 },
+            { answer: 'Я відчуваю себе тут, як удома.', correct: 2 }
+        ]
+    },
+    {
+        question: 'Що мотивує вас залишатися частиною команди?',
+        type: 'Відношення до компанії',
+        answers: [
+            { answer: 'Я хочу досягти нової висоти!', correct: 2 },
+            { answer: 'Я люблю те, що роблю.', correct: 5 },
+            { answer: 'Я бачу реальні результати своєї роботи.', correct: 4 },
+            { answer: 'Колектив та атмосфера підтримуючі, а це дуже важливо для мене.', correct: 3 }
+        ]
+    },
+    {
+        question: 'Що для вас є найціннішим у корпоративній культурі компанії?',
+        type: 'Відношення до компанії',
+        answers: [
+            { answer: 'Чітки цілі та бачення майбутнього.', correct: 4 },
+            { answer: 'Взаємодопомога та підтримка.', correct: 5 },
+            { answer: 'Визнання заслуг кожного співробітника.', correct: 2 },
+            { answer: 'Можливості для навчання та розвитку.', correct: 3 }
+        ]
+    },
+    {
+        question: 'Як ви оцінюєте рівень комунікації в компанії?',
+        type: 'Відношення до компанії',
+        answers: [
+            { answer: 'Часом не вистачає чіткої інформації.', correct: 3 },
+            { answer: 'Мені часто бракує розуміння, що відбувається.', correct: 2 },
+            { answer: 'Є зони для покращення, але загалом все добре.', correct: 4 },
+            { answer: 'Відкритий діалог і прозорість – це круто!', correct: 5 }
+        ]
+    },
+    {
+        question: 'Якби ви могли щось змінити в компанії, що б це було?',
+        type: 'Відношення до компанії',
+        answers: [
+            { answer: 'Інновації в робочих процесах.', correct: 3 },
+            { answer: 'Більше можливостей для розвитку.', correct: 5 },
+            { answer: 'Збільшення матеріальної мотивації.', correct: 2 },
+            { answer: 'Поліпшення атмосфери в колективі.', correct: 4 }
+        ]
+    },
+    {
+        question: 'Яке твердження найкраще описує вашу взаємодію з керівником?',
+        type: 'Віднесення до керівника',
+        answers: [
+            { answer: 'Я отримую чіткі цілі та підтримку в їх досягненні.', correct: 4 },
+            { answer: 'Мій керівник не заважає мені рухатися вперед!', correct: 2 },
+            { answer: 'Мій керівник – це мій наставник.', correct: 5 },
+            { answer: 'Важливо, що мене чують і розуміють.', correct: 3 }
+        ]
+    },
+    {
+        question: `Як сприймаєте зворотний зв'язок від керівника?`,
+        type: 'Віднесення до керівника',
+        answers: [
+            { answer: 'Я використовую його для свого розвитку.', correct: 5 },
+            { answer: 'Я знаю, що мої досягнення цінуються.', correct: 2 },
+            { answer: 'Це можливість удосконалити свої навички.', correct: 3 },
+            { answer: 'Навіть критику я сприймаю, як допомогу, що допоможе мені стати кращим.', correct: 4 }
+        ]
+    },
+    {
+        question: 'Як би ви описали стиль керівництва у вашій команді?',
+        type: 'Віднесення до керівника',
+        answers: [
+            { answer: 'Часом не вистачає ясності.', correct: 2 },
+            { answer: 'Організований, але строгий.', correct: 3 },
+            { answer: 'Дружній та підтримуючий.', correct: 4 },
+            { answer: 'Мотивуючий і надихаючий.', correct: 5 }
+        ]
+    },
+    {
+        question: 'Що ви визначаєте у взаємодії з керівником?',
+        type: 'Віднесення до керівника',
+        answers: [
+            { answer: 'Відкритість у спілкуванні.', correct: 5 },
+            { answer: 'Можливість впливати на прийняття рішень.', correct: 2 },
+            { answer: 'Визнання моєї роботи.', correct: 3 },
+            { answer: 'Конкретика та зрозумілі цілі.', correct: 4 }
+        ]
+    },
+    {
+        question: `Як часто ви отримуєте конструктивний зворотний зв'язок?`,
+        type: 'Віднесення до керівника',
+        answers: [
+            { answer: 'Майже ніколи.', correct: 2 },
+            { answer: 'Іноді, але він завжди корисний.', correct: 4 },
+            { answer: 'Регулярно, і це всі мені допомагає рости.', correct: 5 },
+            { answer: 'Рідко, хотілося б частіше.', correct: 3 }
+        ]
+    },
+    {
+        question: 'Що вас найбільше мотивує працювати щодня?',
+        type: 'Задоволення роботою',
+        answers: [
+            { answer: 'Я люблю навчатися і розвиватися.', correct: 4 },
+            { answer: 'Мені подобається бачити свої досягнення.', correct: 5 },
+            { answer: 'Я працюю, щоб досягти великих цілей!', correct: 2 },
+            { answer: 'Мені важливо, щоб моя робота мала значення.', correct: 3 }
+        ]
+    },
+    {
+        question: 'Як ви відчуваєте себе після робочого дня?',
+        type: 'Задоволення роботою',
+        answers: [
+            { answer: 'Задоволений (-а), бо день пройшов продуктивно.', correct: 5 },
+            { answer: 'Заряджений (-а) енергією на завтра!', correct: 2 },
+            { answer: 'Спокійний (-а), бо зробив (-ла) все, що міг (-могла).', correct: 3 },
+            { answer: 'Натхненний (-а) на нові досягнення!', correct: 4 }
+        ]
+    },
+    {
+        question: 'Що для вас є найкращою винагородою за роботу?',
+        type: 'Задоволення роботою',
+        answers: [
+            { answer: 'Гарний баланс роботи та відпочинку.', correct: 2 },
+            { answer: 'Визнання зусиль та досягнень.', correct: 4 },
+            { answer: 'Гідна заробітна плата.', correct: 5 },
+            { answer: `Кар'єрне зростання.`, correct: 3 }
+        ]
+    },
+    {
+        question: 'Як би ви описали свою мотивацію?',
+        type: 'Задоволення роботою',
+        answers: [
+            { answer: 'Готовий (-а) підкорювати нові вершини! Кожен день - це мій розвиток.', correct: 5 },
+            { answer: 'Робота для мене – це лише спосіб заробітку, основний інтерес у моєму житті лежить в інших сферах.', correct: 2 },
+            { answer: `Я працюю, щоб виконувати свої обов'язки якісн та отримувати гідну зарплату.`, correct: 3 },
+            { answer: `Для мене важливі стабільність, комфортні умови праці та можливість кар'єрного зростання.`, correct: 4 }
+        ]
+    },
+    {
+        question: 'Що для вас є найбільшим джерелом натхнення?',
+        type: 'Задоволення роботою',
+        answers: [
+            { answer: `Моя сім'я та близькі.`, correct: 4 },
+            { answer: 'Визнання моїх досягнень.', correct: 2 },
+            { answer: 'Мої власні цілі.', correct: 5 },
+            { answer: 'Нові знання та розвиток.', correct: 3 }
+        ]
+    },
+
+    
+];
+
+
+    let countPointsEmotion = 0;
+    let countPointsCompany = 0;
+    let countPointsKerivnik = 0;
+    let countPointsZavdovolennya = 0;
+
+
+let currentQuestionIndex = 0; // индекс текущего вопроса
+
+// Функция для перемешивания массива вопросов (алгоритм Фишера-Йейтса)
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]]; // обмен элементов
+    }
+}
+
+// Перемешиваем вопросы случайным образом
+shuffleArray(questions);
+
+// Функция для отображения вопроса и вариантов ответов
+function printQuestions() {
+    if (currentQuestionIndex < questions.length) {
+        const currentQuestion = questions[currentQuestionIndex];
+        
+        // Находим элемент для отображения вопроса
+        const questionElement = document.getElementById("h2-question");
+        questionElement.innerHTML = `${currentQuestionIndex + 1}. ` + currentQuestion.question;
+
+        // Находим элемент для отображения вариантов ответов
+        const answersContainer = document.getElementById("answers-container");
+        answersContainer.innerHTML = ""; // Очищаем предыдущие ответы
+
+        // отрисовываем прогресс бар progress-bar
+        const procent = (currentQuestionIndex + 1) / questions.length * 100;
+        document.getElementsByClassName("progress-bar")[0].style.width = `${procent}%`;
+
+        // Создаем кнопки для ответов
+        currentQuestion.answers.forEach((answer) => {
+            const button = document.createElement("button");
+            button.classList.add("answer-button");
+            button.innerHTML = answer.answer;
+            button.setAttribute("onclick", `selectAnswer(${answer.correct}, '${currentQuestion.type}')`);
+            answersContainer.appendChild(button);
+        });
+
+        currentQuestionIndex++; // увеличиваем индекс, чтобы следующий раз был следующий вопрос
+    } else {
+        document.getElementById("h2-question").textContent = "Для отримання результатів тесту введіть прізвище та ім'я";
+        document.getElementById("h2-question").style.textAlign = 'center';
+        const answersContainer = document.getElementById("answers-container");
+        answersContainer.innerHTML = ``;
+        answersContainer.innerHTML = `<input id='input-email' placeholder="Введіть своє прізвище та ім'я" type="text">
+        <p style="color: red; font-size: 18px; width: 100%; text-align: center;" class="display-none" id="p-error-email">Заповніть поле вводу</p>
+        <button onclick='protectEmail()' style='text-align: center;' class="answer-button">Отримати результати тесту</button>`;
+    }
+}
+
+function protectEmail(){
+    const inputEmail = document.getElementById("input-email");
+    const pErrorEmail = document.getElementById("p-error-email");
+    if (inputEmail.value.length >= 5) {
+        pErrorEmail.classList.add('display-none');
+        localStorage.setItem('email', inputEmail.value);
+        if (countPointsEmotion !== undefined) {
+            localStorage.setItem('countPointsEmotion', countPointsEmotion.toString());
+        }
+
+        if (countPointsCompany !== undefined) {
+            localStorage.setItem('countPointsCompany', countPointsCompany.toString());
+        }
+
+        if (countPointsKerivnik !== undefined) {
+            localStorage.setItem('countPointsKerivnik', countPointsKerivnik.toString());
+        }
+
+        if (countPointsZavdovolennya !== undefined) {
+            localStorage.setItem('countPointsZavdovolennya', countPointsZavdovolennya.toString());
+        }
+
+        
+
+        location.href = '../result/index.html';
+    } else {
+        pErrorEmail.classList.remove('display-none');
+    }
+}
+
+// Функция для обработки выбора ответа
+function selectAnswer(correct, type) {
+    if(type == 'Емоційний стан'){
+        countPointsEmotion += correct;
+    } else if( type == 'Відношення до компанії'){
+       countPointsCompany += correct;
+    } else if( type == 'Віднесення до керівника'){
+       countPointsKerivnik += correct;
+    } else if( type == 'Задоволення роботою'){
+       countPointsZavdovolennya += correct;
+    }
+
+    // Можете добавить логику для проверки правильности и перехода к следующему вопросу
+    printQuestions();
+}
+
+// Пример вызова:
+printQuestions(); // выводит случайно выбранный вопрос
+
+</script>
+</html>
