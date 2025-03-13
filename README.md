@@ -1,0 +1,1 @@
+# emotsiyniy-barometr-test
