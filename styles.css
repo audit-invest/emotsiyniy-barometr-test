@@ -1,0 +1,231 @@
+/* Общие стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
+    line-height: 1.6;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+img{
+    width: 300px;
+    height: 300px;
+}
+
+h1, h2, h3 {
+    text-align: center;
+    color: #2c3e50;
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    height: 100vh;
+    background-image: url('https://via.placeholder.com/1500');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    overflow: hidden;
+}
+
+.hero .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    padding: 20px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+.hero p {
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+.cta-button {
+    padding: 15px 40px;
+    background-color: #3498db;
+    color: white;
+    font-size: 22px;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.cta-button:hover {
+    transform: scale(1.1);
+    background-color: #2980b9;
+}
+
+/* Основная секция */
+main {
+    padding: 40px 20px;
+}
+
+.intro {
+    padding-top: 0px !important;
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #fff;
+    margin-top: -40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.intro h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.intro p {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 30px;
+    line-height: 1.7;
+}
+
+/* Секция преимуществ */
+.benefits {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 40px;
+    padding: 20px 0;
+}
+
+.benefit-item {
+    text-align: center;
+    width: 30%;
+}
+
+.benefit-item .icon {
+    font-size: 50px;
+    color: #3498db;
+    margin-bottom: 10px;
+    transition: transform 0.3s;
+}
+
+.benefit-item:hover .icon {
+    transform: scale(1.2);
+}
+
+.benefit-item h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.benefit-item p {
+    font-size: 16px;
+    color: #777;
+}
+
+/* Кнопка "Начать тест" */
+.start-button {
+    display: inline-block;
+    background-color: #2ecc71;
+    color: white;
+    padding: 15px 40px;
+    font-size: 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    margin-top: 40px;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.start-button:hover {
+    transform: scale(1.05);
+    background-color: #27ae60;
+}
+
+/* Подвал */
+footer {
+    text-align: center;
+    margin-top: 50px;
+    padding: 20px 0;
+    background-color: #2c3e50;
+    color: white;
+}
+
+footer p {
+    font-size: 14px;
+}
+
+/* Адаптивные стили */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 36px;
+    }
+
+    .hero p {
+        font-size: 18px;
+    }
+
+    .cta-button {
+        font-size: 18px;
+        padding: 12px 30px;
+    }
+
+    .benefits {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .benefit-item {
+        width: 80%;
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 28px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .cta-button {
+        font-size: 16px;
+        padding: 10px 25px;
+    }
+
+    .benefit-item h3 {
+        font-size: 18px;
+    }
+
+    .benefit-item p {
+        font-size: 14px;
+    }
+
+    footer{
+        position: static !important;
+    }
+
+    .intro{
+        margin-top: 24px;
+    }
+}
